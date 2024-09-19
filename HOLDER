@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Weather App</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+      <script src="https://d3js.org/d3.v6.min.js"></script>
+      <link href="/style.css" rel="stylesheet">
+      <script src="input.js"></script>
+   </head>
+   <body>
+      <div class="search-bar">
+         <form id="location-form">
+           <input type="text" placeholder="Enter location" id="location-input">
+           <button type="submit">Search</button>
+         </form>
+       </div>
+      <main class="main-container"> 
+         <div class="location-and-date">
+            <h1 id="location" class="location-and-date__location">Toronto, ON</h1>
+            <div id="date">04 / 15 / 2023</div>
+         </div>
+         <div class="current-temperature">
+            <div class="current-temperature__icon-container">
+               <img class="current-temperature__icon" id="icon">
+            </div>
+            <div class="current-temperature__content-container">
+               <div class="current-temperature__value" id="temperature">21&deg;</div>
+            </div>
+         </div>
+         <div class="current-stats">
+            <div>
+               <div class="current-stats__value" id="high-temperature">23&deg;</div>
+               <div class="current-stats__label">High</div>
+               <div class="current-stats__value" id="low-temperature">14&deg;</div>
+               <div class="current-stats__label">Low</div>
+            </div>
+            <div>
+               <div class="current-stats__value" id="feel_high">7mph</div>
+               <div class="current-stats__label">FL High</div>
+               <div class="current-stats__value" id="feel_low">0%</div>
+               <div class="current-stats__label">FL low</div>
+            </div>
+            <div>
+               <div class="current-stats__value" id="wind-speed">05:27</div>
+               <div class="current-stats__label">Wind</div>
+               <div class="current-stats__value" id="rain-probability">20:57</div>
+               <div class="current-stats__label">Rain</div>
+            </div>
+         </div>
+         <h2 class="next-7-days__heading">Next 7 days</h2>
+         <div class="next-7-days__container">
+            <div class="next-7-days__row" id="next-7-days__row-1">
+               <div class="next-7-days__date" id="day_date_1">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_1">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_1">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_1">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_1" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_1">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_1">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-2">
+               <div class="next-7-days__date" id="day_date_2">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_2">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_2">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_2">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_2" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_2">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_2">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-3">
+               <div class="next-7-days__date" id="day_date_3">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_3">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_3">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_3">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_3" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_3">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_3">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-4">
+               <div class="next-7-days__date" id="day_date_4">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_4">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_4">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_4">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_4" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_4">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_4">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-5">
+               <div class="next-7-days__date" id="day_date_5">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_5">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_5">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_5">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_5" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_5">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_5">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-6">
+               <div class="next-7-days__date" id="day_date_6">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_6">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_6">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_6">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_6" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_6">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_6">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="next-7-days__row" id="next-7-days__row-7">
+               <div class="next-7-days__date" id="day_date_7">
+                  Tue
+                  <div class="next-7-days__label" id="day_label_7">30/7</div>
+               </div>
+               <div class="next-7-days__low" id="low_label_7">
+                  10&deg;
+                  <div class="next-7-days__label">Low</div>
+               </div>
+               <div class="next-7-days__high" id="high_label_7">
+                  21&deg;
+                  <div class="next-7-days__label">High</div>
+               </div>
+               <div class="next-7-days__icon">
+                  <img alt="Sunny" id="icon_label_7" height="50px">
+               </div>
+               <div class="next-7-days__rain" id="rain_label_7">
+                  0%
+                  <div class="next-7-days__label">Rain</div>
+               </div>
+               <div class="next-7-days__wind" id="wind_label_7">
+                  12mph
+                  <div class="next-7-days__label">Wind</div>
+               </div>
+            </div>
+            <div class="weather-by-hour">
+               <h2 class="weather-by-hour__heading">Today's weather</h2>
+               <div class="weather-by-hour__container">
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_1">3am</div>
+                     <img id="hourly-icon-1" height="50px">
+                     <div id="hourly_temp_1">14&deg;</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_2">6am</div>
+                     <img id="hourly-icon-2" height="50px">
+                     <div id="hourly_temp_2">16&deg;</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_3">9am</div>
+                     <img id="hourly-icon-3" height="50px">
+                     <div id="hourly_temp_3">18°</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_4">12pm</div>
+                     <img id="hourly-icon-4" height="50px">
+                     <div id="hourly_temp_4">21°</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_5">3pm</div>
+                     <img id="hourly-icon-5" height="50px">
+                     <div id="hourly_temp_5">22°</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_6">6pm</div>
+                     <img id="hourly-icon-6" height="50px">
+                     <div id="hourly_temp_6">20°</div>
+                  </div>
+                  <div class="weather-by-hour__item">
+                     <div class="weather-by-hour__hour" id="hourly_time_7">9pm</div>
+                     <img id="hourly-icon-7" height="50px">
+                     <div id="hourly_temp_7">17°</div>
+                  </div>
+               </div>
+               <div id="weather-by-hour-graph"></div>
+            </div>
+         </div>
+      </main>
+   </body>
+</html>
+
+
+
+///////////////////////////////////////////////////////////////////
+
+
+
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 12px;
+    font-size: 100%;
+    font-family: 'Open Sans', sans-serif;
+    color: white;
+    height: 100%;
+    background: linear-gradient(to bottom, rgb(43, 50, 178) 0%, rgb(20, 136, 204) 100%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+  
+  
+  
+  #weather-by-hour-graph {
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media screen and (min-width: 700px) {
+    body {
+      margin: 20px;
+    }
+  }
+  
+  .main-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  @media screen and (min-width: 920px) {
+    .main-container {
+      width: 880px;
+      margin: 8px auto;
+      font-size: 1.1em;
+    }
+  }
+  
+  /* Main Search Bar */
+  .main-search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .main-search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    max-width: 800px;
+    width: 100%;
+  }
+  
+  .main-search-bar form {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  .main-search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    flex: 1;
+  }
+  
+  .main-search-bar button[type="submit"] {
+    background-color: #0066ff;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+  }
+  
+  
+  /* Search Bar */
+  
+  .search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .search-bar form {
+    display: flex;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-radius: 20px;
+    padding: 10px;
+  }
+  
+  .search-bar input[type="text"] {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    width: 300px;
+  }
+  
+  .search-bar button[type="submit"] {
+    background-color: #0066ff;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 10px;
+  }
+  
+  
+  /* location-and-date */
+  .location-and-date {
+    width: 100%;
+  }
+  
+  .location-and-date__location {
+    margin: 0;
+    font-size: 2em;
+    font-weight: 600;
+  }
+  
+  /* current-temperature */
+  .current-temperature {
+    display: flex;
+    margin-top: 0.25em;
+    width: 100%;
+  }
+  
+  .current-temperature__icon-container {
+    flex-grow: 1.25;
+    text-align: center;
+  }
+  
+  .current-temperature__content-container {
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .current-temperature__icon {
+    width: 10.5em;
+  }
+  
+  .current-temperature__value {
+    font-size: 5.25em;
+    font-weight: 300;
+    margin-left: -50px;
+  }
+  
+  .current-temperature__summary {
+    margin-top: -0.5em;
+    margin-left: -0.6em;
+    text-align: center;
+    font-size: 1.125em;
+  }
+  
+  
+  
+  /* current-stats */
+  .current-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 1em;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  }
+  
+  @media screen and (min-width: 700px) {
+    .current-stats {
+      margin-bottom: 1em;
+      padding-bottom: 0;
+      border-top: none;
+      border-bottom: none;
+      border-left: 1px solid rgba(255, 255, 255, 0.5);
+    }
+  }
+  
+  .current-stats__value {
+    margin-top: 1em;
+    font-size: 1.44em;
+  }
+  
+  .current-stats__label {
+    color: rgba(255, 255, 255, 0.6);
+  }
+  
+  @media screen and (min-width: 700px) {
+  
+    .current-temperature,
+    .current-stats {
+      width: 50%;
+    }
+  }
+  
+  
+  
+  /* weather-by-hour */
+  .weather-by-hour {
+    display: none;
+    width: 100%;
+  }
+  
+  @media screen and (min-width: 700px) {
+    .weather-by-hour {
+      display: block;
+    }
+  }
+  
+  .weather-by-hour__container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .weather-by-hour__heading,
+  .next-7-days__heading {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+    font-weight: normal;
+  }
+  
+  @media screen and (min-width: 768px) {
+  
+    .weather-by-hour__heading,
+    .next-7-days__heading {
+      font-size: 1.125em;
+    }
+  }
+  
+  .weather-by-hour__item {
+    padding: 0.8em 0;
+    width: 13%;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.15);
+    font-size: 1.125em;
+    text-align: center;
+  }
+  
+  @media screen and (min-width: 880px) {
+    .weather-by-hour__item {
+      width: 6.05em;
+    }
+  }
+  
+  .weather-by-hour__hour {
+    margin-bottom: 0.5em;
+  }
+  
+  
+  /* next-7-days */
+  .next-7-days {
+    width: 100%;
+    margin-top: 1em;
+  }
+  
+  .next-7-days__container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .next-7-days__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 0.3em;
+    padding: 0.8em 0;
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.20);
+    font-size: 1.19em;
+    text-align: center;
+  }
+  
+  .next-7-days__label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.83em;
+  }
+  
+  .next-7-days__date,
+  .next-7-days__high,
+  .next-7-days__low,
+  .next-7-days__icon,
+  .next-7-days__rain,
+  .next-7-days__wind {
+    width: 33.33333%;
+    font-size: 0.95em;
+  }
+  
+  .next-7-days__date,
+  .next-7-days__high,
+  .next-7-days__low {
+    margin-bottom: 0.6em;
+  }
+  
+  @media screen and (min-width: 450px) {
+  
+    .next-7-days__date,
+    .next-7-days__high,
+    .next-7-days__low,
+    .next-7-days__icon,
+    .next-7-days__rain,
+    .next-7-days__wind {
+      width: 16.666666%;
+      margin-bottom: initial;
+    }
+  
+    .next-7-days__date {
+      order: -2;
+    }
+  
+    .next-7-days__icon {
+      order: -1;
+    }
+  
+    body {
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+  }

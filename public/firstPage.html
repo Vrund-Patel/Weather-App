@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <script src="input.js" defer></script>
+  </head>
+  <body>
+    <div class="main-search-container">
+      <img src="./brand/logo.png" alt="nice cloud" width="500">     
+      <div class="main-search-bar">          
+        <form id="main-location-form">
+          <input type="text" placeholder="Enter location" id="main-location-input">
+          <button type="submit">Search</button>
+        </form>
+      </div>
+      <button id="locate-me-button">Get My Location</button>
+    </div>
+  </body>
+</html>
